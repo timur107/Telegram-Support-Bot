@@ -47,7 +47,7 @@ async def handle_message(message: types.Message):
 
     if text in FAQ:
         await message.answer(FAQ[text])
-    elif text == "Связаться с поддержкой" or "связаться с поддержкой":
+    elif text == "Связаться с поддержкой":
         await message.answer("Опишите вашу проблему, и я передам ее специалистам.")
     else:
         user_id = message.from_user.id
@@ -61,7 +61,7 @@ async def handle_message(message: types.Message):
         cursor.execute("INSERT INTO requests (user_id, department, message) VALUES (?, ?, ?)", (user_id, department, text))
         conn.commit()
 
-        await message.answer(f"Ваш запрос передан в отдел: {department}. Мы свяжемся с вами в ближайшее время.")
+        await message.answer(f"Ваш запрос передан специалистам в отдел: {department}. Мы свяжемся с вами в ближайшее время.")
 
 async def main():
     await dp.start_polling(bot)
